@@ -1,0 +1,53 @@
+{
+    "version": 2,
+    "description": "blc",
+    "indices": [
+        {
+            "name": "eventdata",
+            "body": "index.json",
+            "types": ["_doc"]
+        }
+    ],
+    "corpora": [
+        {
+            "name": "eventdata",
+            "documents": [
+                {
+                    "source-file": "eventdata_sample.json",
+                    "document-count": 100,
+                    "uncompressed-bytes": 84553
+                }
+            ]
+        }
+    ],
+    "challenges":[
+        {
+            "name":"default",
+            "schedule": [
+                {
+                    "operation": {
+                        "name": "putdata",
+                        "operation-type": "bulk",
+                        "bulk-size": 5
+                    }
+                    "clients": 4,
+                    "warmup-iterations": 1000,
+                    "iterations": 1000,
+                    "target-throughput": 100
+                },
+                {
+                    "operation": {
+                        "name": "search",
+                        "operation-type": "search",
+                        "body": {
+                            "query": {
+                                "match_all": {}
+                            }
+                        }
+                    }
+                    "clients": 4,
+                }
+            ]
+        }
+    ]
+}
